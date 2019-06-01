@@ -12,14 +12,10 @@ my $p;
 $p = $ARGV[0] if defined $ARGV[0];
 $p = `xsel -o` if not defined $ARGV[0];
 
-our $OPENER = $ENV{OPENER};
-our $EDITOR = $ENV{EDITOR};
-our $MAILER = $ENV{MAILER};
-our $MAILROOT = $ENV{MAILROOT};
-$OPENER = "u" if not defined $OPENER;
-$EDITOR = "vi" if not defined $EDITOR;
-$MAILER = "mutt" if not defined $MAILER;
-$MAILROOT = "/home/john/mail/" if not defined $MAILROOT;
+my $OPENER = env (OPENER => "u");
+my $EDITOR = env (EDITOR => "vi");
+my $MAILER = env (MAILER => "mutt");
+my $MAILROOT = env (MAILROOT => "/home/john/mail/");
 
 for ($p) {
 	# web address
@@ -65,4 +61,11 @@ sub path {
 	chomp $t;
 	die "couldn't retrieve directory\n" if ! -d $t and ! -d ($t = dirname $t);
 	return "$t/$f";
+}
+
+sub env {
+	my %h = @_;
+	my $k = (keys %h)[0];
+	return $ENV{$k} if defined ${ENV}{$k};
+	return $h{$k};
 }
