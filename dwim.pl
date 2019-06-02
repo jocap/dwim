@@ -36,6 +36,12 @@ for ($phrase) {
 		exec @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
 	}
 
+	if (/^(.+) line (\d+)\.?$/) {
+		handle "file \" line \" line (like perl)";
+		my $p = path($1);
+		exec @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
+	}
+
 	if (/^(.+):(.+)$/) {
 		handle "file:query (like grep)";
 		my $p = path($1);
