@@ -1,0 +1,51 @@
+.Dd $Mdocdate$
+.Dt DWIM 1
+.Os
+.Sh NAME
+.Nm dwim
+.Nd do what i mean with a given phrase (file, URL etc.)
+.
+.Sh SYNOPSIS
+.Nm dwim
+.Ar phrase
+.
+.Sh DESCRIPTION
+.Nm dwim
+is a program similar to Plan 9's plumber.
+It takes a string
+.Ar ( phrase )
+and matches it against a number of regular expressions,
+which are connected to handlers, specifying what to do with the phrase.
+.
+.Sh EXAMPLES
+.Ss Without X selection
+Open
+.Li message-window.lisp
+on line 164
+in
+.Li $EDITOR :
+.
+.Bd -literal
+$ grep 'def.*indicator ' *.lisp 
+message-window.lisp:164:(defun show-frame-indicator (group &optional force)
+$ dwim message-window.lisp:164
+.Ed
+.
+.Ss With X selection
+Open
+.Li Makefile
+in
+.Li $EDITOR :
+.
+.Bd -literal
+$ ls
+LICENSE   Makefile  README.md repl      repl.1    repl.c
+# (select Makefile)
+$ dwim
+.Ed
+.
+.Sh EXTENDING
+It is a simple Perl script that is easily extensible.
+.Sh AUTHOR
+.An -nosplit
+.An John Ankarström Aq Mt john@ankarstrom.se
