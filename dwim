@@ -33,20 +33,20 @@ for ($phrase) {
 	}
 
 	if (/^(.+):(\d+)(:.*?)?$/) {
-		handle "file:line";
-		my $p = path($1);
+		handle "{file}:{line} (like grep -n)";
+		my $p = path $1;
 		exec @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
 	}
 
 	if (/^(.+) line (\d+)\.?$/) {
-		handle "file \" line \" line (like perl)";
-		my $p = path($1);
+		handle "{file} line {line} (like perl)";
+		my $p = path $1;
 		exec @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
 	}
 
 	if (/^(.+):(.+)$/) {
-		handle "file:query (like grep)";
-		my $p = path($1);
+		handle "{file}:{query} (like grep)";
+		my $p = path $1;
 		exec @LAUNCHER, @EDITOR, "-c", "/$2", "$p" if -e $p;
 		fail "file not found" if $o{d};
 		# otherwise fall through
@@ -54,7 +54,7 @@ for ($phrase) {
 
 	if (/^([^\s]+)$/) {
 		handle "maildir / directory / file";
-		my $p = path($1);
+		my $p = path $1;
 		exec @LAUNCHER, @MAILDIR_VIEWER, "$p" if $p =~ /^$MAILROOT/; # maildir
 		exec @LAUNCHER, @EDITOR, "$p" if -e $p; #file
 		fail "file not found" if $o{d};
