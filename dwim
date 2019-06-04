@@ -11,11 +11,13 @@ use subs qw/path env handle fail arguments/;
 my ($phrase, %o) = arguments "usage: $0 parse\n", 1, d => 0;
 $phrase = `xsel -o` if not defined $phrase;
 
-my @LAUNCHER = split /\s/, env(OPENER => "urxvtc -e");
-my @EDITOR = split /\s/, env(EDITOR => "vi");
-my @MAILER = split /\s/, env(MAILER => "mutt");
-my @MAILDIR_VIEWER = split /\s/, env(MAILDIR_VIEWER => "mutt -f");
-my $MAILROOT = env(MAILROOT => "/home/john/mail/");
+my @LAUNCHER       = split /\s/, env OPENER => "urxvtc -e";
+my @EDITOR         = split /\s/, env EDITOR => "vi";
+my @MAILER         = split /\s/, env MAILER => "mutt";
+my @BROWSER        = split /\s/, env BROWSER => "firefox";
+my @FILE_BROWSER   = split /\s/, env FILE_BROWSER => "ranger";
+my @MAILDIR_VIEWER = split /\s/, env MAILDIR_VIEWER => "mutt -f";
+my $MAILROOT       = env MAILROOT => "/home/john/mail/";
 
 our $handler;
 
