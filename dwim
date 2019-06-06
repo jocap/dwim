@@ -52,6 +52,11 @@ for ($phrase) {
 		# otherwise fall through
 	}
 
+	if (/^([^\s]+)\(([^\s]+)\)/) {
+		handle "{manpage}({section})";
+		run @LAUNCHER, "man", "$2", "$1";
+	}
+
 	if (/^([^\s]+)$/) {
 		handle "maildir / directory / file";
 		my $p = path $1;
