@@ -33,19 +33,19 @@ for ($phrase) {
 	}
 
 	if (/^(.+):(\d+).*?$/) {
-		handle "{file}:{line} (like grep -n)";
+		handle "file:line (like grep -n)";
 		my $p = path $1;
 		run @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
 	}
 
 	if (/^(.+) line (\d+)\.?$/) {
-		handle "{file} line {line} (like perl)";
+		handle "FILE line LINE (like perl)";
 		my $p = path $1;
 		run @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
 	}
 
 	if (/^(.+):(.+)$/) {
-		handle "{file}:{query} (like grep)";
+		handle "file:query (like grep)";
 		my $p = path $1;
 		run @LAUNCHER, @EDITOR, "-c", "/$2", "$p" if -e $p;
 		fail "file not found" if $o{d};
@@ -53,12 +53,12 @@ for ($phrase) {
 	}
 
 	if (/^([^\s]+)\(([^\s]+)\)[,.]?/) {
-		handle "{manpage}({section})";
+		handle "manpage(section)";
 		run @LAUNCHER, "man", "$2", "$1";
 	}
 
 	if (/^<([^\s]+)>$/) {
-		handle "header file";
+		handle "<header.h>";
 		run @LAUNCHER, @EDITOR, "/usr/include/$1" if -e "/usr/include/$1";
 		run @LAUNCHER, @EDITOR, "/usr/local/include/$1" if -e "/usr/local/include/$1";
 		fail "header file not found";
