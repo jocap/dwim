@@ -52,7 +52,7 @@ for ($phrase) {
 		# otherwise fall through
 	}
 
-	if (/^([^\s]+)\(([^\s]+)\)/) {
+	if (/^([^\s]+)\(([^\s]+)\)[,.]?/) {
 		handle "{manpage}({section})";
 		run @LAUNCHER, "man", "$2", "$1";
 	}
