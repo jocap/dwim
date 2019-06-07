@@ -22,12 +22,12 @@ my $MAILROOT       = env MAILROOT => "/home/john/mail/";
 our $handler;
 
 for ($phrase) {
-	if (/^(https?:\/?\/?.+)$/) {
+	if (/^(https?:\/?\/?[^\s]+)$/) {
 		handle "web address";
 		run @BROWSER, "$1"
 	}
 
-	if (/^(mailto:.+)$/ or /^(.+@.+\.\w+)$/) {
+	if (/^(mailto:[^\s]+)$/ or /^([^\s]+@.+\.\w+)$/) {
 		handle "e-mail address";
 		run @MAILER, "$1"
 	}
