@@ -57,6 +57,13 @@ for ($phrase) {
 		run @LAUNCHER, "man", "$2", "$1";
 	}
 
+	if (/^<([^\s]+)>$/) {
+		handle "header file";
+		run @LAUNCHER, @EDITOR, "/usr/include/$1" if -e "/usr/include/$1";
+		run @LAUNCHER, @EDITOR, "/usr/local/include/$1" if -e "/usr/local/include/$1";
+		fail "header file not found";
+	}
+
 	if (/^([^\s]+)$/) {
 		handle "maildir / directory / file";
 		my $p = path $1;
