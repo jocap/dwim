@@ -32,7 +32,7 @@ for ($phrase) {
 		run @MAILER, "$1"
 	}
 
-	if (/^(.+):(\d+)(:.*?)?$/) {
+	if (/^(.+):(\d+).*?$/) {
 		handle "{file}:{line} (like grep -n)";
 		my $p = path $1;
 		run @LAUNCHER, @EDITOR, "-c", ":$2", "$p"
