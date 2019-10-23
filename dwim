@@ -64,6 +64,11 @@ for ($phrase) {
 		fail "header file not found";
 	}
 
+	if (/^([^\s]+-[\d.]+_\d+)$/) {
+		handle "xbps package";
+		run @LAUNCHER, "in-shell", "sudo", "xbps-install", "-S", $1;
+	}
+
 	if (/^([^\s]+)$/) {
 		handle "maildir / directory / file";
 		my $p = path $1;
